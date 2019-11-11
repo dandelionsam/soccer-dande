@@ -11,42 +11,52 @@ exports.getRandomPlayer = () => {
     return info[teams[randomTeam]][randomPlayer];
 };
 exports.checkForTeam = (teamName) => {
-    for (let i = 0; i < teams.length; i++) {
-        if (teamName === teams[i]) {
+    return Boolean(info[teamName]);
+    /*for (let i = 0; i < teams.length; i++){
+        if(teamName === teams[i]){
             return true;
         }
     }
-    return false;
+    return false;*/
 };
 exports.getRandomPlayerFromATeam = (teamName) => {
     let randomTeam = teams.indexOf(teamName);
+    if (randomTeam === -1) {
+        return undefined;
+    }
     let randomPlayer = Math.floor(Math.random() * info[teams[randomTeam]].length);
-    return info[teams[randomTeam]][randomPlayer];
+    const resPlayer = info[teams[randomTeam]][randomPlayer];
+    return Object.assign(Object.assign({}, resPlayer), { team: teamName });
+    // return info[teamName[randomPlayer]];
 };
 exports.listOfTeams = () => {
     return teams;
 };
 exports.teamRosterFromATeam = (teamName) => {
-    return info[teams[teams.indexOf(teamName)]];
+    const index = teams.indexOf(teamName);
+    if (index === -1) {
+        return [];
+    }
+    return info[teams[index]];
 };
 exports.listOfPlayers = () => {
     let result = [];
     for (let i = 0; i < teams.length; i++) {
         let arr = exports.teamRosterFromATeam(teams[i]);
         for (let j = 0; j < arr.length; j++) {
-            result.push(arr[j]);
+            result.push(Object.assign(Object.assign({}, arr[j]), { team: teams[i] }));
         }
     }
     return result;
 };
 exports.getPlayersByRole = (role) => {
-    // let list:Player[] = listOfPlayers();
-    // let result:Player[] = list.filter(function(player){
-    //     return player.role === role;
-    // });
-    // return result;
-    return exports.listOfPlayers().filter(function (player) {
+    return exports.listOfPlayers().filter((player) => {
         return player.role === role;
+    });
+};
+exports.getPlayersByName = (name) => {
+    return exports.listOfPlayers().find((player) => {
+        return player.name === name;
     });
 };
 //# sourceMappingURL=index.js.map
