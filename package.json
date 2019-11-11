@@ -1,6 +1,6 @@
 {
   "name": "soccer-dande-b",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple soccer NPM",
   "main": "out/index.js",
   "types": "out",
