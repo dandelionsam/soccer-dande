@@ -15,7 +15,7 @@ export interface Player {
 export const getRandomPlayer = ():Player => {
     let randomTeam = Math.floor(Math.random() * teams.length);
     let randomPlayer = Math.floor(Math.random() * info[teams[randomTeam]].length);
-    return info[teams[randomTeam]][randomPlayer];
+    return {...info[teams[randomTeam]][randomPlayer], team: teams[randomTeam]};
 }
 
 export const checkForTeam = (teamName: string):boolean => {
